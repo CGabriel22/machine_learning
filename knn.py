@@ -1,5 +1,4 @@
 import pandas as pd
-from decimal import Decimal
 
 def readTable():
   data = []
