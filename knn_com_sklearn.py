@@ -29,22 +29,22 @@ def knn(n_neighbors, knownShape, unknownShape):
         winners = sorted(distances, key=lambda x: x[0])[:n_neighbors]
     # print(winners)
     
-    types = [winner[1] for winner in winners]
-    resultado = 0
-    tipo_vencedor = ""
-    for i in types:
-        if resultado > types.count(i):
-            continue
-        resultado = types.count(i)
-        tipo_vencedor = i
-    
-    print(f'A espécie da planta No. {unknownItem[0]}  é: {tipo_vencedor}')
+        types = [winner[1] for winner in winners]
+        resultado = 0
+        tipo_vencedor = ""
+        for i in types:
+            if resultado > types.count(i):
+                continue
+            resultado = types.count(i)
+            tipo_vencedor = i
+        
+        print(f'A espécie da planta No. {unknownItem[0]}  é: {tipo_vencedor}')
 
 
 def main():
     data = readTable()
     knownShape, unknownShapeResponse = mountShapes(data)
-    knn(3, knownShape, unknownShapeResponse)
+    knn(10, knownShape, unknownShapeResponse)
 
 if __name__ == "__main__":
     main()
