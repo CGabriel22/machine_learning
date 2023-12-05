@@ -15,7 +15,7 @@ def mountShapes(data):
   knownShape = data[1:140:15]
   return knownShape, unknownShape, unknownShapeResponse
 
-def knn(n_neighbors, knownShape, unknownShape ):
+def knn(k_neighbors, knownShape, unknownShape ):
   for unknownItem in unknownShape:
     distances = []
     for knownItem in knownShape:
@@ -34,7 +34,7 @@ def knn(n_neighbors, knownShape, unknownShape ):
     # print(f'---------{unknownItem}----------')
     # for i in distances:
     #   print(i)
-    winners = sorted(distances, key=lambda x: x[0])[:n_neighbors]
+    winners = sorted(distances, key=lambda x: x[0])[:k_neighbors]
      
     # print(winners)
     
