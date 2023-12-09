@@ -1,5 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+
 
 def readTable():
     data = []
@@ -13,6 +15,7 @@ def mountShapes(data):
     return knownShape, unknownShapeResponse
 
 def knn(n_neighbors, knownShape, unknownShape):
+    predicao = []
     for unknownItem in unknownShape:
         distances = []
         for knownItem in knownShape:
@@ -27,7 +30,7 @@ def knn(n_neighbors, knownShape, unknownShape):
             distances.append([euclideanDistance, knownItem[5]])
 
         winners = sorted(distances, key=lambda x: x[0])[:n_neighbors]
-    # print(winners)
+        #print(winners)
     
         types = [winner[1] for winner in winners]
         resultado = 0
@@ -37,14 +40,27 @@ def knn(n_neighbors, knownShape, unknownShape):
                 continue
             resultado = types.count(i)
             tipo_vencedor = i
+            
+        predicao.append(tipo_vencedor)
         
-        print(f'A espécie da planta No. {unknownItem[0]}  é: {tipo_vencedor}')
+        #print(f'A espécie da planta No. {unknownItem[0]}  é: {tipo_vencedor}')
+        
+    return predicao
 
 
 def main():
-    data = readTable()
-    knownShape, unknownShapeResponse = mountShapes(data)
-    knn(10, knownShape, unknownShapeResponse)
+    
+    vizinhos = int(input("Insira o numero de vizinhos"))
+    for i in range(10):
+        teste=[]
+        
+        data = readTable()
+        knownShape, unknownShapeResponse = mountShapes(data)
+        predicao = knn(vizinhos, knownShape, unknownShapeResponse)
+        
+        for i in unknownShapeResponse:
+            teste.append(i[5])
+        print(classification_report(teste, predicao))
 
 if __name__ == "__main__":
     main()
